@@ -22,6 +22,7 @@ client.on("authenticated", (session) => {
 
   client.on('ready', () => {
     console.log('Client is ready!');
+    getUnreadMsg(client);
 });
 
 client.on("auth_failure", (session) => {
@@ -32,9 +33,18 @@ client.on("auth_failure", (session) => {
     console.log("WHATSAPP WEB => Disconnected");
   });
   
-client.on('message', message => {
+/*client.on('message', message => {
 	console.log(message.body);
-});
+});*/
+async function getUnreadMsg(client) {
+  try {
+    const allChats = await client.getChats();
+    Logger.log(allChats)
+    console.log('check chat log');
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 
 client.initialize();

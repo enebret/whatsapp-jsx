@@ -2,7 +2,18 @@ const { Client, LocalAuth } = require('whatsapp-web.js');
 const fs = require("fs");
 const qrcode = require('qrcode-terminal');
 const { Console } = require("console");
-
+const express = require ('express');
+const app = express();
+const port = process.env.PORT || 5727 ;
+var hostName;
+app.listen(port, ()=>{
+  console.log (`server listening on ${port}`)
+});
+app.get('/', (req, res)=>{
+  hostName = req.headers.host;
+  console.log(`server listening on https://${hostName}`);
+  res.send('testing server connection')
+});
 const Logger = new Console({
     stdout: fs.createWriteStream("normalStdout.txt", { flags: 'a' }),
     stderr: fs.createWriteStream("errStdErr.txt"),

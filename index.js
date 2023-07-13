@@ -17,14 +17,15 @@ app.get('/', (req, res)=>{
 });
 
   const client = new Client({
-    authStrategy: new LocalAuth({
-      dataPath: '../'
-  }),
+    authStrategy: new LocalAuth({ clientId: "client-one" }),
     puppeteer: {
-      headless: false,
-      args: ['--no-sandbox'],
-      browserWSEndpoint: process.env.BROWSER_URL,
-  },
+      args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+      ]
+    }
  
 });
 

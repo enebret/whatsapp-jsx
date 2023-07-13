@@ -19,13 +19,10 @@ app.get('/', (req, res)=>{
   const client = new Client({
     authStrategy: new LocalAuth({ clientId: "client-one" }),
     puppeteer: {
-      args: [
-      "--disable-setuid-sandbox",
-      "--no-sandbox",
-      "--single-process",
-      "--no-zygote",
-      ]
-    }
+      headless: false,
+      args: ['--no-sandbox'],
+      browserWSEndpoint: process.env.BROWSER_URL,
+  },
  
 });
 

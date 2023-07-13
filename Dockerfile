@@ -1,8 +1,8 @@
+FROM  node:17.0.0-alpine
 
-WORKDIR /usr/src/app
+RUN apk add chromium
 
-COPY package*.json ./
-RUN npm ci
-COPY . .
-CMD [ "node", "index.js" ]
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
+EXPOSE 3001

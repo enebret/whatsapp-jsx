@@ -20,7 +20,16 @@ const Logger = new Console({
   });
 
   const client = new Client({
-    authStrategy: new LocalAuth({ clientId: "client-one" })
+    authStrategy: new LocalAuth({ clientId: "client-one" }),
+    puppeteer: {
+      headless: false,
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ]
+    }
 });
 
 client.on('qr', qr => {

@@ -17,7 +17,9 @@ app.get('/', (req, res)=>{
 });
 
   const client = new Client({
-    authStrategy: new LocalAuth({ clientId: "client-one" }),
+    authStrategy: new LocalAuth({
+      dataPath: '../'
+  }),
     puppeteer: {
       headless: false,
       args: ['--no-sandbox'],

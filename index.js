@@ -5,9 +5,10 @@ const { Console } = require("console");
 const express = require ('express');
 const app = express();
 const port = process.env.PORT || 5727 ;
+require("dotenv").config();
 var hostName;
 app.listen(port, ()=>{
-  console.log (`server listening on ${port}`)
+  console.log (`server listening on port ${port}`)
 });
 app.get('/', (req, res)=>{
   hostName = req.headers.host;
@@ -22,14 +23,18 @@ const Logger = new Console({
   const client = new Client({
     authStrategy: new LocalAuth({ clientId: "client-one" }),
     puppeteer: {
-      headless: false,
       args: [
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-        "--single-process",
-        "--no-zygote",
-      ]
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+      ],
+      executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
     }
+ 
 });
 
 client.on('qr', qr => {

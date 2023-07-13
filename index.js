@@ -1,7 +1,7 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const fs = require("fs");
 const qrcode = require('qrcode-terminal');
-const { Console } = require("console");
+
 const express = require ('express');
 const app = express();
 const port = process.env.PORT || 5727 ;
@@ -15,10 +15,6 @@ app.get('/', (req, res)=>{
   console.log(`server listening on https://${hostName}`);
   res.send('testing server connection')
 });
-const Logger = new Console({
-    stdout: fs.createWriteStream("normalStdout.txt", { flags: 'a' }),
-    stderr: fs.createWriteStream("errStdErr.txt"),
-  });
 
   const client = new Client({
     authStrategy: new LocalAuth({ clientId: "client-one" }),
@@ -67,7 +63,7 @@ client.on("auth_failure", (session) => {
 async function getUnreadMsg(client) {
   try {
     const allChats = await client.getChats();
-    Logger.log(allChats)
+    //Logger.log(allChats)
     console.log('check chat log');
   } catch (e) {
     console.error(e);

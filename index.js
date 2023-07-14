@@ -43,6 +43,17 @@ client.on("authenticated", (session) => {
     const text = "Alright";
     const chatId = '2348108093964@c.us';
     const groupId = '120363045867794165@g.us';
+    //client.getChatById(groupId).then(chat=>console.log(chat));
+    async function getChatHistory(client) {
+      try {
+        const chatThread = await client.getChatById(groupId);
+        //Logger.log(allChats)
+        console.log(chatThread);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    getChatHistory(client);
     client.sendMessage(groupId, text);
     
     //getUnreadMsg(client);
